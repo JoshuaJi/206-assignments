@@ -1,0 +1,17 @@
+a)
+When I use the command 'cat answer.txt', it prompts that permission denied.
+
+I also tried ‘tail answer.txt’ which shows me the same message.
+
+
+b)
+Since I don’t have the permission, I tried ‘ chmod 750 answer.txt’(or ‘sudo cat answer.txt’ should work too) to change the file’s permission.
+After that, I did ‘cat answer.txt’.
+
+And I got this message:
+
+This file contains a message with the answer to part 1. The message is:
+
+"Look what I learned in 206!"
+
+Congratulations if you read this.
