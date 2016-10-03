@@ -8,13 +8,17 @@ if [[ $# != 1 ]]; then
 	exit
 fi
 
+if [ ! -d 'result' ]; then
+	mkdir result	
+fi
+
 case $1 in
 	"alpha" )
 		for FILE_NAME in ${FILE_LIST_DAT[@]}; do
 			echo ${FILE_NAME%%.*}
 		done
-		convert *.jpg -append alpha.png
-		eog alpha.png
+		convert *.jpg -append result/result.jpg
+		eog result/result.jpg
 		;;
 
 	"weight" )
@@ -36,8 +40,8 @@ case $1 in
 			ORDERED_FILES+=(${FILE_LIST_JPG[$INDEX]})
 			echo ${FILE_LIST_DAT[$INDEX]%%.*}
 		done
-		convert ${ORDERED_FILES[@]} -append weight.png
-		eog weight.png
+		convert ${ORDERED_FILES[@]} -append result/result.jpg
+		eog result/result.jpg
 		;;
 
 	"length" )
@@ -58,8 +62,8 @@ case $1 in
 			ORDERED_FILES+=(${FILE_LIST_JPG[$INDEX]})
 			echo ${FILE_LIST_DAT[$INDEX]%%.*}
 		done
-		convert ${ORDERED_FILES[@]} -append length.png
-                eog length.png
+		convert ${ORDERED_FILES[@]} -append result/result.jpg
+                eog result/result.jpg
 
 		;;
 esac
