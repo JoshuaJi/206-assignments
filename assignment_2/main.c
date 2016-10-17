@@ -30,12 +30,16 @@ int read_input(char * input[]){
 }
 
 void get_localization(char* file_name, char *date_loc_list[], char *month_loc_list[]){
-	FILE *fp = fopen(file_name, "r");
+	FILE *fp;
 	char *line = NULL;
 	size_t linecap = 0;
 	char *word;
 	int index = 0;
 
+	if((fp = fopen(file_name, "r")) == NULL){
+		printf(ANSI_COLOR_RED "File doesn't exist" ANSI_COLOR_RESET "\n");
+		exit(-1);
+	}
 	getline(&line, &linecap, fp);
 	while((word = strsep(&line, " \t\n")) != NULL){
 		date_loc_list[index++] = strdup(word);
