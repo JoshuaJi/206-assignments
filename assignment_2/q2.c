@@ -11,18 +11,18 @@
 // Sanity check for the input, if the arguments are not integer/out of range or # of arguments is not 4, it will exit
 void sanity_check(int argc, char *argv[], int *day_spacing, int *first_day){
 	if (argc != 4){
-		printf(ANSI_COLOR_RED "Please provide exactly 4 arguemnts" ANSI_COLOR_RESET "\n");
+		printf(ANSI_COLOR_RED "ERROR: Please provide exactly 4 arguemnts" ANSI_COLOR_RESET "\n");
 		printf(ANSI_COLOR_RED "Usage: ./calendar [localization file] [day_spacing] [first_day]" ANSI_COLOR_RESET "\n");
 		exit(-1);
 	}
 
 	if (atoi(argv[2]) < 2){
-		printf(ANSI_COLOR_RED "Day spacing should be at least 2" ANSI_COLOR_RESET "\n");
+		printf(ANSI_COLOR_RED "ERROR: Day spacing should be at least 2" ANSI_COLOR_RESET "\n");
 		exit(-1);
 	}
 
 	if (atoi(argv[3]) < 1 || atoi(argv[3]) > 7){
-		printf(ANSI_COLOR_RED "Starting day is invalid, should be an integer between 1 and 7" ANSI_COLOR_RESET "\n");
+		printf(ANSI_COLOR_RED "ERROR: Starting day is invalid, should be an integer between 1 and 7" ANSI_COLOR_RESET "\n");
 		exit(-1);
 	}
 
@@ -41,7 +41,7 @@ void get_localization(char* file_name, char *date_loc_list[], char *month_loc_li
 	int index = 0;
 
 	if((fp = fopen(file_name, "r")) == NULL){
-		printf(ANSI_COLOR_RED "File doesn't exist" ANSI_COLOR_RESET "\n");
+		printf(ANSI_COLOR_RED "ERROR: File doesn't exist" ANSI_COLOR_RESET "\n");
 		exit(-1);
 	}
 	getline(&line, &linecap, fp);

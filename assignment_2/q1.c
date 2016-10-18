@@ -7,7 +7,7 @@
 
 void sanity_check(int argc){
 	if (argc != 2){
-		printf(ANSI_COLOR_RED "Please provide exactly one arguemnt" ANSI_COLOR_RESET "\n");
+		printf(ANSI_COLOR_RED "ERROR: Please provide exactly one arguemnt" ANSI_COLOR_RESET "\n");
 		printf(ANSI_COLOR_RED "Usage: date | ./date_translate [localization file]" ANSI_COLOR_RESET "\n");
 		exit(-1);
 	}
@@ -37,7 +37,7 @@ void get_localization(char* file_name, char *date_loc_list[], char *month_loc_li
 	int index = 0;
 
 	if((fp = fopen(file_name, "r")) == NULL){
-		printf(ANSI_COLOR_RED "File doesn't exist" ANSI_COLOR_RESET "\n");
+		printf(ANSI_COLOR_RED "ERROR: File doesn't exist" ANSI_COLOR_RESET "\n");
 		exit(-1);
 	}
 	getline(&line, &linecap, fp);
