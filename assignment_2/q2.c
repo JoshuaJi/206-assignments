@@ -8,10 +8,10 @@
 #define NUMBER_OF_MONTH 12
 #define NUMBER_DAYS_IN_WEEK 7
 
-// Sanity check for the input, if the arguments are not integer/out of range or # of arguments is not 4, it will exit
+// Sanity check for the input, if the arguments are not integer/out of range or # of arguments is not 3, it will exit
 void sanity_check(int argc, char *argv[], int *day_spacing, int *first_day){
 	if (argc != 4){
-		printf(ANSI_COLOR_RED "ERROR: Please provide exactly 4 arguemnts" ANSI_COLOR_RESET "\n");
+		printf(ANSI_COLOR_RED "ERROR: Please provide exactly 3 arguemnts" ANSI_COLOR_RESET "\n");
 		printf(ANSI_COLOR_RED "Usage: ./calendar [localization file] [day_spacing] [first_day]" ANSI_COLOR_RESET "\n");
 		exit(-1);
 	}
