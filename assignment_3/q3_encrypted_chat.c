@@ -23,7 +23,7 @@ void decrypt_message(char *msg, char *decrypted_msg, int shift){
 
 void encrypt_message(char *msg, char *encrypted_msg, int shift){
 	int i = 0;
-	while(msg[i] != '\0'){
+	while(msg[i] != EOF){
 		encrypted_msg[i] = (msg[i]+shift)%256;
 		i++;
 	}
@@ -32,6 +32,7 @@ void encrypt_message(char *msg, char *encrypted_msg, int shift){
 void check_avaliable_message(const char *file_name, int shift){
 	char buff[MAX_MSG_LENGTH];
 	char decrypted_msg[MAX_MSG_LENGTH];
+	decrypted_msg[0] = '\0';
 	buff[0] = '\0';
 	do{
 		FILE *incoming_file = fopen(file_name, "r");
@@ -48,7 +49,7 @@ void check_avaliable_message(const char *file_name, int shift){
 		if (strcmp(last_reseived_msg, buff) != 0){
 			first_time_entry = 0;
 			decrypt_message(buff, decrypted_msg, shift);
-			printf("Received: %s\n", decrypted_msg);
+			printf("Received: %s", decrypted_msg);
 			strcpy(last_reseived_msg, buff);
 			break;
 		}else if (first_time_entry){
@@ -63,6 +64,7 @@ void check_avaliable_message(const char *file_name, int shift){
 void send_message(const char *file_name, const char *username, int shift){
 	char buff[MAX_MSG_LENGTH];
 	char encrypted_msg[MAX_MSG_LENGTH];
+	encrypted_msg[0] = '\0';
 	printf("Send:     ");
 	fgets(buff, MAX_MSG_LENGTH, stdin);
 	FILE *outgoing_file = fopen(file_name, "w");
@@ -73,7 +75,6 @@ void send_message(const char *file_name, const char *username, int shift){
 	strcat(encrypted_msg, buff);
 
 	encrypt_message(encrypted_msg, encrypted_msg, shift);
-	printf("encrypted msg: %s\n", encrypted_msg);
 	fputs(encrypted_msg, outgoing_file);
 	fclose(outgoing_file);
 }
