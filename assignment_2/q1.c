@@ -58,8 +58,8 @@ void get_localization(char* file_name, char *date_loc_list[], char *month_loc_li
 
 // the function look up the date information, 
 // once it founds some string that can be replaced by localization data, it will replace them
-void do_string_localization(char* input[], int word_count, char* date_loc_list[], char* month_loc_list[]){
-
+int do_string_localization(char* input[], int word_count, char* date_loc_list[], char* month_loc_list[]){
+	int changed = 0;
 	char *dates[] = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 	char *months[] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"};
 
@@ -68,15 +68,18 @@ void do_string_localization(char* input[], int word_count, char* date_loc_list[]
 		for (int j = 0; j < sizeof(dates)/sizeof(dates[0]); j++){
 			if (strcmp(dates[j], input[i]) == 0){
 				input[i] = strdup(*(date_loc_list+j));
+				changed++;
 			}
 		}
 
 		for (int j = 0; j < sizeof(months)/sizeof(months[0]); j++){
 			if (strcmp(months[j], input[i]) == 0){
 				input[i] = strdup(*(month_loc_list+j));
+				changed++;
 			}
 		}
 	}
+	return changed;
 }
 
 // Given a string array, the function can print it out with format
@@ -99,7 +102,12 @@ int main(int argc, char *argv[]){
 	get_localization(argv[1], date_loc_list, month_loc_list);
 
 	// Translate the date information and print out with the format
-	do_string_localization(input, word_count, date_loc_list, month_loc_list);
+	int changed = do_string_localization(input, word_count, date_loc_list, month_loc_list);
+	// Check is input is valid
+	if (changed == 0){
+		printf(ANSI_COLOR_RED "ERROR: Input is not a date" ANSI_COLOR_RESET"\n");
+		exit(0);
+	}
 	print_date(input, word_count);
 
 	return 0;
