@@ -3,9 +3,6 @@
 #include <string.h>
 #include <unistd.h>
 
-#define WAIT 1
-#define DO_NOT_WAIT 0
-
 int first_time_entry;
 char last_reseived_msg[1000];
 
@@ -63,9 +60,7 @@ int main(int argc, char const *argv[])
 	}
 
 	first_time_entry = 1;
-
 	const char *username = argv[3];
-
 	strcpy(last_reseived_msg, "\0");
 
 	while(1){
