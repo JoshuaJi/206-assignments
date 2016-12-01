@@ -1,11 +1,13 @@
 import sys
 from random import randint
 
+# sanity chekc the number of arguments
 def sanity_check(argv):
 	if len(sys.argv) != 2:
 		print "Please provide only the file name"
 		sys.exit(0)
 
+# take a text file and extracts the word-pair as well as their frequency
 def process_file(text_file):
 	word_pair_list = {};
 	line = text_file.read()
@@ -16,12 +18,15 @@ def process_file(text_file):
 	line = line.replace('\n', ' ')
 	line = ''.join([i for i in line if (i.isalpha() or i.strip(' .!?') == '')])
 	
+	# split the artical into words and ignore the empty ones
 	words = line.split(' ')
 	words = filter(lambda word:word != '', words)
 	for i in xrange(len(words)-1):
+		# if the first word is ending the sentence, skip the word
 		if words[i].strip('.!?') == '':
 			continue
 		
+		# construct word pair and add it to the dictionary
 		word_pair = words[i] + '-' + words[i+1]
 		word_pair = word_pair.lower()
 		
@@ -30,15 +35,19 @@ def process_file(text_file):
 		else:
 			word_pair_list[word_pair] = 1
 
+	# sort word-pair dictionary based on their frequency
 	word_pair_list = sorted(word_pair_list.items(), key=lambda x:x[1], reverse=True)
 	return word_pair_list
 
+# check if a word is in the word-pair dictionary
 def look_up_word(current_word, word_pair_list):
 	for key in word_pair_list:
 		if current_word == key[0].split('-')[0]:
 			return True
 	return False
 
+# given a word, find the corresponding pair if it exists in the dictionary,
+# if it doesn't exist, return an empty string
 def generate_next_word(current_word, word_pair_list):
 	if current_word+'-.' in word_pair_list:
 		return '.'
@@ -51,10 +60,12 @@ def generate_next_word(current_word, word_pair_list):
 			return key[0].split('-')[1]
 	return ''
 
+# randomly choose a word from word-pair list
 def random_choose_word(word_pair_list):
 	index = randint(0,len(word_pair_list))
 	return word_pair_list[index][0].split('-')[0]
 
+# given a starting word, generate a whole sentence based on the word-pair list
 def generate_reply(last_word, word_pair_list):
 	reply = ""
 	i = 0
@@ -73,12 +84,14 @@ def generate_reply(last_word, word_pair_list):
 		i += 1
 	return reply
 
+# capitalize the reply
 def format_msg(reply):
 	formatted_reply = list(reply)
 	formatted_reply[0] = reply[0].upper()
 	formatted_reply[-3] = ''
 	return "".join(formatted_reply)
 
+# start the chating loop
 def start_chat(word_pair_list):
 	while True:
 		input = raw_input("Send: ")
@@ -86,10 +99,6 @@ def start_chat(word_pair_list):
 		reply = generate_reply(last_word, word_pair_list)
 		reply = format_msg(reply)
 		print "Received: " + reply
-
-def print_words(word_pair_list):
-	for (k,v) in word_pair_list:
-		print k+':'+str(v)
 
 def main():
 	sanity_check(sys.argv);
