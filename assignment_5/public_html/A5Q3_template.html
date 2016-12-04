@@ -1,0 +1,26 @@
+<html>
+
+<head>
+	<link rel="stylesheet" type="text/css" href="css/animate.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+
+</head>
+<body>
+<form name="input" action="./cgi-bin/q3_cgi_filter.py" method="post" enctype="multipart/form-data" class="animated fadeInDown">
+
+  <p>Photo to Upload: <input type="file" name="photo" style="display:inline" /></p>
+  <br>
+  <p class="h4">First Filter to Apply:</p>
+  <div class="weights">
+	  <p><input type="text" name="00" value="1"> <input type="text" name="01" value="1"> <input type="text" name="02"  value="1"> </p>
+	  <p><input type="text" name="10" value="1"> <input type="text" name="11" value="-7"> <input type="text" name="12" value="1"> </p>
+	  <p><input type="text" name="20" value="1"> <input type="text" name="21"  value="1"> <input type="text" name="22" value="1"> </p>
+  </div>
+  <input type="submit" value="Load" name="load" class="btn btn-info">
+  <input type="submit" value="Filter" name="filter" class="btn btn-info">
+  <input type="submit" value="Undo" name="undo" class="btn btn-info">
+  <input type="submit" value="Redo" name="redo" class="btn btn-info">
+</form>
+</body>
+</html>

@@ -109,8 +109,11 @@ def do_filter(argv):
 		img_filter(img_path, 'result.bmp', width, weights)
 	
 
+	if current_index < len(history):
+		history[current_index] = (width, weights)	
+	else:
+		history.append((width, weights))
 	current_index += 1
-	history.append((width, weights))
 
 def undo(argv):
 	global img_path

@@ -1,0 +1,10 @@
+live demo:
+http://www.cs.mcgill.ca/~xji12/A5Q3_template.html
+
+
+about q3_cgi_filter.py hierarchy:
+
+   |-- A5Q3_template.html
+   |-- cgi-bin
+            |-- q3_cgi_filter.py
+            |-- libfast_filter.so
