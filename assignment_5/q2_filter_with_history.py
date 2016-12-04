@@ -50,6 +50,11 @@ def load(argv):
 	img_path = argv[2]
 	current_index = 0
 	history = []
+	img_file = open(img_path, 'rb')
+	result_file = open('result.bmp', 'wb')
+	result_file.write(img_file.read())
+	img_file.close()
+	result_file.close()
 
 
 def img_filter(input_file, output_file, width, weights):
@@ -73,7 +78,7 @@ def do_filter(argv):
 	
 	number_of_args = 0
 	try:
-		number_of_args = 3+int(argv[2])*int(argv[2])
+		number_of_args = 3+int(argv[0])*int(argv[0])
 	except Exception as e:
 		print "Usage filter <width> <weights_array>"
 		sys.exit(0)
@@ -85,7 +90,7 @@ def do_filter(argv):
 
 	for x in xrange(0, number_of_args-3):
 		try:
-			float(argv[x + 2])
+			float(argv[x])
 		except Exception as e:
 			print "width and weights should be numbers"
 			sys.exit(0)
@@ -94,8 +99,8 @@ def do_filter(argv):
 	global history
 
 
-	width = int(argv[2])
-	weights = argv[3:]
+	width = int(argv[0])
+	weights = argv[1:]
 	weights = map(float, weights)
 
 	try:
@@ -146,7 +151,7 @@ def main():
 		load(sys.argv)
 
 	elif sys.argv[1] == 'filter':
-		do_filter(sys.argv)
+		do_filter(sys.argv[2:])
 
 	elif sys.argv[1] == 'undo':
 		undo(sys.argv)

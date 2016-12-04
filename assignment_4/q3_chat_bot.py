@@ -3,8 +3,8 @@ from random import randint
 
 # sanity chekc the number of arguments
 def sanity_check(argv):
-	if len(sys.argv) != 2:
-		print "Please provide only the file name"
+	if len(sys.argv) < 2:
+		print "Please provide at least one file name"
 		sys.exit(0)
 
 # take a text file and extracts the word-pair as well as their frequency
@@ -100,15 +100,46 @@ def start_chat(word_pair_list):
 		reply = format_msg(reply)
 		print "Received: " + reply
 
+def current_count(item, word_pair_list):
+	for pair in word_pair_list:
+		if pair[0]==item[0]:
+			return pair[1]
+	return -1
+
+def merge_lists(list1, list2):
+	result_list = {}
+	for item in list1:
+		if(item[0] in result_list):
+			retult_list[item[0]] = item[1]+result_list[item[0]]
+		else:
+			result_list[item[0]] = item[1]
+
+	for item in list2:
+		if(item[0] in result_list):
+                        result_list[item[0]] = item[1]+result_list[item[0]]
+                else:
+                        result_list[item[0]] = item[1]
+
+	result_list = sorted(result_list.items(), key=lambda x:x[1], reverse=True)
+	return result_list
+
 def main():
 	sanity_check(sys.argv);
-	try:
-		text_file = open(sys.argv[1]);
-	except Exception as e:
-		print "File provided does not exist"
-		sys.exit(0)
+        main_word_pair_list = []
+	for file in sys.argv[1:]:
+		try:
+			print "===="+file+"===="
+			text_file = open(file);
+			print "file opened"
+			word_pair_list = process_file(text_file)
+                	print "file process done"
+			main_word_pair_list = merge_lists(word_pair_list, main_word_pair_list)
+			print "word pair merged"
+			text_file.close()
+		except Exception as e:
+			print e
+			print "File %s provided does not exist"%(file)
 	
-	word_pair_list = process_file(text_file)
-	start_chat(word_pair_list)
+	start_chat(main_word_pair_list)
 if __name__ == '__main__':
 	main()
